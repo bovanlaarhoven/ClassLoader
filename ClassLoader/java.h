@@ -84,8 +84,29 @@ public:
     jclass FindClass(const std::string& className) {
         std::lock_guard<std::mutex> lock(classesMutex);
         auto it = loadedClasses.find(className);
-        return it != loadedClasses.end() ? it->second : nullptr;
+        if (it != loadedClasses.end()) {
+            return it->second;
+        }
+
+        jstring jClassName = env->NewStringUTF(className.c_str());
+
+        jclass classLoaderClass = env->FindClass("java/lang/ClassLoader");
+        jmethodID getSystemClassLoader = env->GetStaticMethodID(classLoaderClass, "getSystemClassLoader", "()Ljava/lang/ClassLoader;");
+        jobject systemClassLoader = env->CallStaticObjectMethod(classLoaderClass, getSystemClassLoader);
+
+        jmethodID loadClass = env->GetMethodID(classLoaderClass, "loadClass", "(Ljava/lang/String;)Ljava/lang/Class;");
+        jclass clazz = (jclass)env->CallObjectMethod(systemClassLoader, loadClass, jClassName);
+        env->DeleteLocalRef(jClassName);
+
+        if (clazz) {
+            jclass globalRef = (jclass)env->NewGlobalRef(clazz);
+            loadedClasses[className] = globalRef;
+            return globalRef;
+        }
+
+        return nullptr;
     }
+
 
     ~ClassLoader() {
         std::lock_guard<std::mutex> lock(classesMutex);

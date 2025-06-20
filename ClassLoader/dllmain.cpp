@@ -56,7 +56,6 @@ void MainThread(HMODULE module) {
         g_classLoader->env->DeleteGlobalRef(globalMinecraftInstance);
     }
 
-    // Wait for unload trigger
     while (!(GetAsyncKeyState(VK_DELETE) & 1)) {
         Sleep(100);
     }
