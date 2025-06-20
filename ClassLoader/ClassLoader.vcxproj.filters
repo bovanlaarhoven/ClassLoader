@@ -7,15 +7,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="src\ClassLoader\ClassLoader.h" />
+    <ClCompile Include="src\dllmain.cpp" />
+    <ClCompile Include="src\ClassLoader\ClassLoader.cpp" />
+    <ClCompile Include="src\Mappings\Mapping.cpp" />
+    <ClCompile Include="src\McDetector\MinecraftDetector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="java.h" />
+    <ClInclude Include="src\Mappings\Mapping.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mappings\Fabric\Fabric1215.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mappings\Vanilla\Vanilla1215.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\McDetector\MinecraftDetector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
