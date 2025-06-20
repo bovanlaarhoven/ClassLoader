@@ -1,3 +1,3 @@
 # features
-mod loader detection
-multi mappings loader
+- mod loader detection  
+- multi mappings loader
